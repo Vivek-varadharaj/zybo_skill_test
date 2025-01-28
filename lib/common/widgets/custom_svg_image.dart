@@ -6,6 +6,7 @@ class CustomSvgImage extends StatelessWidget {
   final double? width;
   final double? height;
   final double borderRadius;
+  final Color? color;
 
   const CustomSvgImage({
     super.key,
@@ -13,6 +14,7 @@ class CustomSvgImage extends StatelessWidget {
     this.width,
     this.height,
     this.borderRadius = 0.0,
+    this.color,
   });
 
   @override
@@ -21,6 +23,7 @@ class CustomSvgImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius),
       child: SvgPicture.asset(
         assetPath,
+        color: color,
         width: width,
         height: height,
         fit: BoxFit.contain,

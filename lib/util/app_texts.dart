@@ -8,5 +8,8 @@ class AppTexts {
   static const String otpIs = "OTP is ";
   static const String didntRecieveCode = "Don’t receive code ? ";
   static const String submit = "Submit";
-  static const String enterName= "Enter Full Name";
+  static const String enterName = "Enter Full Name";
+  static const String home = "Home";
+  static const String wishList = "Wishlist";
+  static const String profile = "Profile";
 }

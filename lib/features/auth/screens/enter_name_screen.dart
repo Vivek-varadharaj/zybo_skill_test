@@ -21,11 +21,11 @@ class EnterNameScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomBackButton(),
+            const CustomBackButton(),
             SizedBox(
               height: Dimensions.paddingSizeExtraOverLarge,
             ),
-            CustomTextField(
+            const CustomTextField(
               hintText: AppTexts.enterName,
             ),
             SizedBox(
@@ -33,7 +33,7 @@ class EnterNameScreen extends StatelessWidget {
             ),
             CustomButton(
               onTap: () {
-                Get.toNamed(Routes.home);
+                Get.toNamed(Routes.dashboard);
               },
               title: AppTexts.submit,
             )

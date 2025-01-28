@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:zybo_skill_test/features/auth/screens/enter_name_screen.dart';
 import 'package:zybo_skill_test/features/auth/screens/login_screen.dart';
 import 'package:zybo_skill_test/features/auth/screens/otp_verification_screen.dart';
+import 'package:zybo_skill_test/features/dashboard/screens/dashboard_screen.dart';
 import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/features/profile/screens/profile_screen.dart';
 import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
@@ -21,6 +22,10 @@ class AppPages {
     GetPage(
       name: Routes.login,
       page: () => const LoginScreen(),
+    ),
+    GetPage(
+      name: Routes.dashboard,
+      page: () => const DashboardScreen(),
     ),
     GetPage(
       name: Routes.enterName,

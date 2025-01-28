@@ -9,4 +9,5 @@ class Routes {
   static const splash= "/splash";
    static const verifyOtp= "/verifyOtp";
    static const enterName = "/enterName";
+     static const dashboard = "/dashboard";
 }
