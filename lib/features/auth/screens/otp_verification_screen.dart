@@ -9,8 +9,7 @@ import 'package:zybo_skill_test/common/widgets/custom_back_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
-import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
-import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
+
 import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
@@ -28,7 +27,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   late TextEditingController pinputController;
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     pinputController = TextEditingController();
   }

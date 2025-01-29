@@ -20,7 +20,7 @@ class ProductModel {
   final String? discount;
   final String? createdDate;
   final String? productType;
-  final dynamic? showingOrder;
+  final dynamic showingOrder;
   final String? variationName;
   final int? category;
   final int? taxRate;
@@ -75,7 +75,7 @@ class ProductModel {
     String? discount,
     String? createdDate,
     String? productType,
-    dynamic? showingOrder,
+    dynamic showingOrder,
     String? variationName,
     int? category,
     int? taxRate,

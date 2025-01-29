@@ -31,6 +31,9 @@ class _WishlistScreenState extends State<WishlistScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: Dimensions.fontSizeDefault,
+            ),
             Text(
               AppTexts.wishList,
               style: AppTextStyles.heeboHeading

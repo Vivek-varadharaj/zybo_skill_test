@@ -5,15 +5,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+
 import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_text_field.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
-import 'package:zybo_skill_test/features/auth/domain/models/verify_otp_model.dart';
-import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
+
 import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
@@ -122,7 +120,7 @@ class LoginScreen extends StatelessWidget {
                           decorationThickness: 2),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          print("Terms of Use Clicked");
+                         
                         },
                     ),
                     TextSpan(
@@ -141,7 +139,7 @@ class LoginScreen extends StatelessWidget {
                           decorationThickness: 2),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          print("Privacy Policy Clicked");
+                          
                         },
                     ),
                   ],

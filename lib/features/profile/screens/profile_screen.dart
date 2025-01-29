@@ -32,6 +32,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: Dimensions.paddingSizeDefault,
+                ),
                 Text(
                   AppTexts.myProfile,
                   style: AppTextStyles.heeboHeading
@@ -73,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   height: (Dimensions.paddingSizeExtraOverLarge),
                 ),
                 Center(
-                child: TextButton(
+                  child: TextButton(
                       onPressed: () {
                         Get.find<AuthController>().logout();
                       },

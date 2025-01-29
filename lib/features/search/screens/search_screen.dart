@@ -10,8 +10,19 @@ import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Get.find<SearchProductsController>().searchProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +35,11 @@ class SearchScreen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  CustomBackButton(),
+                  const CustomBackButton(),
                   SizedBox(
                     width: Dimensions.paddingSizeDefault,
                   ),
-                  Expanded(child: HomeTextField(isEnabled: true)),
+                  const Expanded(child: HomeTextField(isEnabled: true)),
                 ],
               ),
               GetBuilder<SearchProductsController>(builder: (controller) {
@@ -50,16 +61,10 @@ class SearchScreen extends StatelessWidget {
                           childAspectRatio: 163 / 232,
                           shrinkWrap: true,
                           crossAxisCount: 2,
-                          children: controller.query.isEmpty
-                              ? Get.find<HomeController>()
-                                  .popularProductList!
-                                  .map((product) =>
-                                      ProductCard(productModel: product))
-                                  .toList()
-                              : controller.searchedProducts!
-                                  .map((product) =>
-                                      ProductCard(productModel: product))
-                                  .toList(),
+                          children: controller.searchedProducts
+                              .map((product) =>
+                                  ProductCard(productModel: product))
+                              .toList(),
                         ),
                 );
               })
@@ -68,5 +73,12 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+    Get.find<SearchProductsController>().query = "";
   }
 }

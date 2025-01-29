@@ -1,7 +1,7 @@
 import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zybo_skill_test/api/api_client.dart';
-import 'package:zybo_skill_test/common/models/response_model.dart';
+
 import 'package:zybo_skill_test/util/app_constants.dart';
 
 class AuthRepository {

@@ -31,6 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
       (timeStamp) {
+        Get.find<DashBoardController>().toggleTabs(0);
         getDashboardData();
       },
     );

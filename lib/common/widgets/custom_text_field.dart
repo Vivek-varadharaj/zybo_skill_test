@@ -1,10 +1,10 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
-import 'package:zybo_skill_test/util/dimensions.dart';
+
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField(

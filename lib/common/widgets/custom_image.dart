@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:zybo_skill_test/util/app_colors.dart';
 
 class CustomImage extends StatelessWidget {
   final String image;
@@ -26,10 +27,18 @@ class CustomImage extends StatelessWidget {
       fit: fit,
       placeholder: (context, url) => placeholder.isNotEmpty
           ? Image.asset(placeholder, height: height, width: width, fit: fit)
-          : Container(),
+          : Container(
+              color: AppColors.neutral10,
+              height: height,
+              width: width,
+            ),
       errorWidget: (context, url, error) => placeholder.isNotEmpty
           ? Image.asset(placeholder, height: height, width: width, fit: fit)
-          : Container(),
+          : Container(
+              color: AppColors.neutral10,
+              height: height,
+              width: width,
+            ),
     );
   }
 }
