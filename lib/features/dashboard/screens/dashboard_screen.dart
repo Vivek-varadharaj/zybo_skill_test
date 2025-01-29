@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
+import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
+import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
@@ -16,22 +20,27 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Home',
-    ),
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
     Text(
       'Likes',
     ),
-    Text(
-      'Profile',
+    InkWell(
+      onTap: () {
+        Get.find<AuthController>().logout();
+      },
+      child: Text(
+        'Profile',
+      ),
     ),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: SafeArea(
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(12),
@@ -48,64 +57,68 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
         margin: const EdgeInsets.all(20),
-        child: SafeArea(
-          child: GNav(tabs: [
-            GButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 0;
-                });
-              },
-              icon: Icons.abc,
-              backgroundColor: AppColors.primary400,
-              leading: CustomSvgImage(
-                assetPath: Images.home,
-                color: _selectedIndex == 0
-                    ? AppColors.neutral0
-                    : AppColors.neutral60,
-              ),
-              text: '  ${AppTexts.home}',
-              textStyle:
-                  AppTextStyles.latoPara.copyWith(color: AppColors.neutral0),
+        child: GNav(tabs: [
+          GButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 0;
+              });
+            },
+            icon: Icons.abc,
+            backgroundColor: AppColors.primary400,
+            leading: CustomSvgImage(
+              width: 24,
+              height: 24,
+              assetPath: Images.home,
+              color: _selectedIndex == 0
+                  ? AppColors.neutral0
+                  : AppColors.neutral60,
             ),
-            GButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 1;
-                });
-              },
-              backgroundColor: AppColors.primary400,
-              icon: Icons.favorite,
-              text: '  ${AppTexts.wishList}',
-              leading: CustomSvgImage(
-                assetPath: Images.heart,
-                color: _selectedIndex == 1
-                    ? AppColors.neutral0
-                    : AppColors.neutral60,
-              ),
-              textStyle:
-                  AppTextStyles.latoPara.copyWith(color: AppColors.neutral0),
+            text: '  ${AppTexts.home}',
+            textStyle: AppTextStyles.latoPara.copyWith(
+                color: AppColors.neutral0, fontWeight: FontWeight.w600),
+          ),
+          GButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 1;
+              });
+            },
+            backgroundColor: AppColors.primary400,
+            icon: Icons.favorite,
+            text: '  ${AppTexts.wishList}',
+            leading: CustomSvgImage(
+              width: 24,
+              height: 24,
+              assetPath: Images.heart,
+              color: _selectedIndex == 1
+                  ? AppColors.neutral0
+                  : AppColors.neutral60,
             ),
-            GButton(
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 2;
-                });
-              },
-              backgroundColor: AppColors.primary400,
-              icon: Icons.people,
-              text: '  ${AppTexts.profile}',
-              textStyle:
-                  AppTextStyles.latoPara.copyWith(color: AppColors.neutral0),
-              leading: CustomSvgImage(
-                assetPath: Images.profile,
-                color: _selectedIndex == 2
-                    ? AppColors.neutral0
-                    : AppColors.neutral60,
-              ),
+            textStyle: AppTextStyles.latoPara.copyWith(
+                color: AppColors.neutral0, fontWeight: FontWeight.w600),
+          ),
+          GButton(
+            onPressed: () {
+              setState(() {
+                _selectedIndex = 2;
+              });
+            },
+            backgroundColor: AppColors.primary400,
+            icon: Icons.people,
+            text: '  ${AppTexts.profile}',
+            textStyle: AppTextStyles.latoPara.copyWith(
+                color: AppColors.neutral0, fontWeight: FontWeight.w600),
+            leading: CustomSvgImage(
+              width: 24,
+              height: 24,
+              assetPath: Images.profile,
+              color: _selectedIndex == 2
+                  ? AppColors.neutral0
+                  : AppColors.neutral60,
             ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }

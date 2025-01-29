@@ -12,4 +12,7 @@ class AppTexts {
   static const String home = "Home";
   static const String wishList = "Wishlist";
   static const String profile = "Profile";
+  static const String search = "Search";
+  static const String popularProduct = "Popular Products";
+  static const String resend = "Re-send";
 }

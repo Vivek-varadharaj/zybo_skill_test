@@ -7,10 +7,13 @@ import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({super.key, this.controller, this.hintText});
+  const CustomTextField(
+      {super.key, this.controller, this.hintText, this.onChanged,  this.textInputType});
 
   final TextEditingController? controller;
   final String? hintText;
+  final Function(String?)? onChanged;
+  final TextInputType? textInputType;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -24,6 +27,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           border: Border(bottom: BorderSide(color: AppColors.neutral10))),
       padding: EdgeInsets.symmetric(vertical: 16.sp, horizontal: 6.sp),
       child: TextField(
+        keyboardType: widget.textInputType,
+          onChanged: widget.onChanged,
           controller: widget.controller,
           scrollPadding: EdgeInsets.zero,
           decoration: InputDecoration(

@@ -31,7 +31,7 @@ class ApiClient extends GetxService {
 
     header.addAll({
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $token'
+      if (token != null) 'Authorization': 'Bearer $token'
     });
     if (setHeader) {
       _mainHeaders = header;

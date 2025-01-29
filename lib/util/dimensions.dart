@@ -17,7 +17,7 @@ class Dimensions {
 
   static double radiusSmall = 7.0;
   static double radiusDefault = 10.0;
-  static double radiusLarge = 15.0;
+  static double radiusLarge = 13.0;
   static double radiusExtraLarge = 20.0;
   static double radiusInfinity = 10000;
 

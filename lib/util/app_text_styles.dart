@@ -43,11 +43,13 @@ class AppTextStyles {
       textBaseline: TextBaseline.alphabetic,
       color: AppColors.neutral0);
 
-
-      static TextStyle latoPara = GoogleFonts.lato(
+  static TextStyle latoPara = GoogleFonts.lato(
     fontSize: 14.0,
-    fontWeight: FontWeight.w600,
+    textBaseline: TextBaseline.alphabetic,
+  );
 
+  static TextStyle heeboHeading = GoogleFonts.heebo(
+    fontSize: 18.0,
     textBaseline: TextBaseline.alphabetic,
   );
 }

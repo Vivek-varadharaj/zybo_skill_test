@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'package:pinput/pinput.dart';
 import 'package:zybo_skill_test/common/widgets/custom_back_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
+import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
+import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
 import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
@@ -56,47 +60,52 @@ class OtpVerificationScreen extends StatelessWidget {
                   SizedBox(
                     height: Dimensions.paddingSizeDefault,
                   ),
-                  RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: AppTexts.enterTheOtpSentTo,
-                            style: AppTextStyles.para2.copyWith(
-                                fontWeight: FontWeight.w300,
-                                color: AppColors.neutral60)),
-                        TextSpan(
-                          text: "+91-9747753976",
-                          style: AppTextStyles.heading7.copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.neutral100,
+                  GetBuilder<AuthController>(builder: (authController) {
+                    return RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: AppTexts.enterTheOtpSentTo,
+                              style: AppTextStyles.para2.copyWith(
+                                  fontWeight: FontWeight.w300,
+                                  color: AppColors.neutral60)),
+                          TextSpan(
+                            text:
+                                "+${authController.selectedCountry.phoneCode}-${authController.phoneNumber}",
+                            style: AppTextStyles.heading7.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.neutral100,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        ],
+                      ),
+                    );
+                  }),
                   SizedBox(
                     height: Dimensions.paddingSizeExtraOverLarge,
                   ),
-                  RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: AppTexts.otpIs,
-                            style: AppTextStyles.heading7.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.neutral100)),
-                        TextSpan(
-                          text: "2445",
-                          style: AppTextStyles.heading3.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: AppColors.primary400,
+                  GetBuilder<AuthController>(builder: (authController) {
+                    return RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: AppTexts.otpIs,
+                              style: AppTextStyles.heading7.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.neutral100)),
+                          TextSpan(
+                            text: authController.otpModel?.otp ?? "",
+                            style: AppTextStyles.heading3.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.primary400,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        ],
+                      ),
+                    );
+                  }),
                   SizedBox(
                     height: Dimensions.paddingSizeExtraOverLarge,
                   ),
@@ -135,7 +144,7 @@ class OtpVerificationScreen extends StatelessWidget {
                               .copyWith(color: AppColors.neutral60),
                         ),
                         TextSpan(
-                            text: "2445",
+                            text: AppTexts.resend,
                             style: AppTextStyles.heading7.copyWith(
                                 fontWeight: FontWeight.w700,
                                 color: AppColors.alertGreen)),
@@ -148,8 +157,12 @@ class OtpVerificationScreen extends StatelessWidget {
                   CustomButton(
                     backgroundColor: AppColors.primary400,
                     title: AppTexts.submit,
-                    onTap: () {
-                      Get.toNamed(Routes.enterName);
+                    onTap: () async {
+                      if (Get.find<AuthController>().otpModel?.user ?? false) {
+                        Get.offAllNamed(Routes.dashboard);
+                      } else {
+                        Get.toNamed(Routes.enterName);
+                      }
                     },
                   )
                 ],
