@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -6,6 +7,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 import 'package:zybo_skill_test/features/dashboard/controllers/dash_board_controller.dart';
+import 'package:zybo_skill_test/features/home/bloc/home_bloc.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/features/profile/controllers/profile_controller.dart';
@@ -37,7 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   getDashboardData() {
-    Get.find<HomeController>().getHomePageData();
+    context.read<HomeBloc>().add(HomeDataRequested());
     Get.find<ProfileController>().getProfile();
     Get.find<WishlistController>().getWishlist();
   }
