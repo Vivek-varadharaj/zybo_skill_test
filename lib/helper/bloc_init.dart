@@ -6,6 +6,8 @@ import 'package:zybo_skill_test/features/auth/domain/repositories/auth_repositor
 import 'package:zybo_skill_test/features/home/bloc/banner_bloc.dart';
 import 'package:zybo_skill_test/features/home/bloc/home_bloc.dart';
 import 'package:zybo_skill_test/features/home/domain/repositories/home_repository.dart';
+import 'package:zybo_skill_test/features/search/bloc/search_bloc.dart';
+import 'package:zybo_skill_test/features/search/domain/repositories/search_repository.dart';
 import 'package:zybo_skill_test/util/app_constants.dart';
 
 Future<List<BlocProvider>> initiate() async {
@@ -17,6 +19,7 @@ Future<List<BlocProvider>> initiate() async {
   );
 
   final homeRepository = HomeRepository(apiClient: apiClient);
+  final searchRepository = SearchRepository(apiClient: apiClient);
 
   return [
     BlocProvider<HomeBloc>(
@@ -26,6 +29,9 @@ Future<List<BlocProvider>> initiate() async {
     ),
     BlocProvider<BannerBloc>(
       create: (context) => BannerBloc(),
+    ),
+    BlocProvider<SearchBloc>(
+      create: (context) => SearchBloc(searchRepository),
     ),
   ];
 }

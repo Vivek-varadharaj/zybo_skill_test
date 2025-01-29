@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
+import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
+import 'package:zybo_skill_test/features/search/bloc/search_bloc.dart';
 import 'package:zybo_skill_test/features/search/controllers/search_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
@@ -41,7 +44,7 @@ class _HomeTextFieldState extends State<HomeTextField> {
           Expanded(
               child: TextField(
             onChanged: (value) {
-              Get.find<SearchProductsController>().changeQuery(value);
+              context.read<SearchBloc>().add(SearchingWithQuery(query: value));
             },
             readOnly: !widget.isEnabled,
             enabled: widget.isEnabled,
