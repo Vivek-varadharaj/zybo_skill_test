@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:zybo_skill_test/common/widgets/product_card.dart';
 import 'package:zybo_skill_test/features/wishlist/controller/wishlist_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
@@ -18,7 +17,6 @@ class WishlistScreen extends StatefulWidget {
 class _WishlistScreenState extends State<WishlistScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

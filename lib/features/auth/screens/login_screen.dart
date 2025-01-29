@@ -118,10 +118,7 @@ class LoginScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                           decorationThickness: 2),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                         
-                        },
+                      recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     TextSpan(
                       text: " & ",
@@ -137,10 +134,7 @@ class LoginScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                           decorationThickness: 2),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () {
-                          
-                        },
+                      recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                   ],
                 ),
@@ -164,6 +158,8 @@ class LoginScreen extends StatelessWidget {
 
       if (responseModel.isSuccess) {
         Get.toNamed(Routes.verifyOtp);
+      } else {
+        showCustomSnackbar(responseModel.message ?? "Getting otp failed");
       }
     } else {
       log("${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");

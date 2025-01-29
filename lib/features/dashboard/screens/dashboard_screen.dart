@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
-import 'package:get/get_instance/get_instance.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
-import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 import 'package:zybo_skill_test/features/dashboard/controllers/dash_board_controller.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
@@ -94,9 +91,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             GButton(
               onPressed: () {
-                setState(() {
-                  controller.toggleTabs(1);
-                });
+                controller.toggleTabs(1);
               },
               backgroundColor: AppColors.primary400,
               icon: Icons.favorite,

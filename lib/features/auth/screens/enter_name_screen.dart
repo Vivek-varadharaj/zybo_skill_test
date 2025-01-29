@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/common/widgets/custom_back_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
+import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_text_field.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 
@@ -22,7 +23,6 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
   late TextEditingController controller;
   @override
   void initState() {
-
     super.initState();
     controller = TextEditingController();
   }
@@ -51,16 +51,7 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
               return CustomButton(
                 isLoading: authController.isLoading,
                 onTap: () async {
-                  ResponseModel responseModel =
-                      await Get.find<AuthController>().registration({
-                    "phone_number":
-                        "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
-                    "first_name": controller.text.trim()
-                  });
-
-                  if (responseModel.isSuccess) {
-                    Get.toNamed(Routes.dashboard);
-                  }
+                  register();
                 },
                 title: AppTexts.submit,
               );
@@ -69,5 +60,20 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
         ),
       )),
     );
+  }
+
+  register() async {
+    ResponseModel responseModel =
+        await Get.find<AuthController>().registration({
+      "phone_number":
+          "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
+      "first_name": controller.text.trim()
+    });
+
+    if (responseModel.isSuccess) {
+      Get.toNamed(Routes.dashboard);
+    } else {
+      showCustomSnackbar(responseModel.message ?? "Registration failed");
+    }
   }
 }

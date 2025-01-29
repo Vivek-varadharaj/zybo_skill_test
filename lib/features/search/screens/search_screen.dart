@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/widgets/custom_back_button.dart';
 import 'package:zybo_skill_test/common/widgets/product_card.dart';
-import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/home/widgets/home_text_field.dart';
 import 'package:zybo_skill_test/features/search/controllers/search_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';

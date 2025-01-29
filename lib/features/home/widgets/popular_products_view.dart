@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:zybo_skill_test/common/widgets/custom_image.dart';
 import 'package:zybo_skill_test/common/widgets/product_card.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
-import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
-import 'package:zybo_skill_test/util/images.dart';
 
 class PopularProductsView extends StatelessWidget {
   const PopularProductsView({super.key});

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/models/product_model.dart';
+import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/common/widgets/custom_image.dart';
+import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/features/wishlist/controller/wishlist_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
@@ -88,8 +89,8 @@ class ProductCard extends StatelessWidget {
           right: 0,
           child: GetBuilder<WishlistController>(builder: (wishlistController) {
             return IconButton(
-                onPressed: () {
-                  Get.find<WishlistController>().addToWishList(productModel);
+                onPressed: () async {
+                  onFavoritePressed();
                 },
                 icon: wishlistController.isLoading &&
                         productModel.id == wishlistController.loadingId
@@ -110,5 +111,15 @@ class ProductCard extends StatelessWidget {
         )
       ],
     );
+  }
+
+  onFavoritePressed() async {
+    ResponseModel responseModel =
+        await Get.find<WishlistController>().addToWishList(productModel);
+    if (responseModel.isSuccess) {
+      showCustomSnackbar(responseModel.message ?? "");
+    } else {
+      showCustomSnackbar(responseModel.message ?? "");
+    }
   }
 }

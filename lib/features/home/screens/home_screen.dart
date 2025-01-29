@@ -1,7 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zybo_skill_test/common/widgets/custom_image.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/home/widgets/banner_view.dart';
 import 'package:zybo_skill_test/features/home/widgets/home_text_field.dart';

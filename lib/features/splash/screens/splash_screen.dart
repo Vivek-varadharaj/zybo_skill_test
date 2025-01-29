@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
-import 'package:zybo_skill_test/features/auth/domain/repositories/auth_repository.dart';
 import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'package:zybo_skill_test/util/images.dart';
 

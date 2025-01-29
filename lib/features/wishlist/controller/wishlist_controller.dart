@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import 'package:zybo_skill_test/common/models/product_model.dart';
+import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/wishlist/domain/respository/wishlist_repository.dart';
 
@@ -19,18 +20,20 @@ class WishlistController extends GetxController {
     update();
   }
 
-  Future<bool> addToWishList(ProductModel product) async {
+  Future<ResponseModel> addToWishList(ProductModel product) async {
     loadingId = product.id;
     _isLoading = true;
     update();
     Response response = await wishlistRepository.addToWishList(product.id);
     if (response.statusCode == 200 || response.statusCode == 201) {
       await getWishlist();
-      
+
       await Get.find<HomeController>().toggleFavorite(product);
     }
     _isLoading = false;
     update();
-    return response.statusCode == 200;
+    return ResponseModel(
+        response.statusCode == 200 || response.statusCode == 201,
+        response.body['message'] ?? "");
   }
 }
