@@ -9,4 +9,5 @@ class AppConstants {
   static const String homeBannerListApi = '/api/banners';
   static const String productListApi = "/api/products";
   static const String verifyOtpApi = "/api/verify/";
+  static const String profileApi = "/api/user-data/";
 }

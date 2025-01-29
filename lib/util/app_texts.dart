@@ -15,4 +15,7 @@ class AppTexts {
   static const String search = "Search";
   static const String popularProduct = "Popular Products";
   static const String resend = "Re-send";
+  static const String myProfile = "My Profile";
+  static const String name = "Name";
+  static const String phone = "Phone";
 }

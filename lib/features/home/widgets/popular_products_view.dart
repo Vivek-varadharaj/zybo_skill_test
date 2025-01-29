@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/widgets/custom_image.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
@@ -6,6 +7,7 @@ import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
+import 'package:zybo_skill_test/util/images.dart';
 
 class PopularProductsView extends StatelessWidget {
   const PopularProductsView({super.key});
@@ -35,73 +37,88 @@ class PopularProductsView extends StatelessWidget {
             crossAxisCount: 2,
             children: controller.popularProductList!
                 .map(
-                  (e) => Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  (e) => Stack(
                     children: [
-                      e.images != null && e.images!.isNotEmpty
-                          ? AspectRatio(
-                              aspectRatio: 163 / 176,
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.radiusLarge),
-                                  child: CustomImage(image: e.images![0])))
-                          : const SizedBox(),
-                      SizedBox(height: Dimensions.paddingSizeExtraSmall),
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                e.mrp != null
-                                    ? Text(
-                                        "₹${e.mrp!.toStringAsFixed(0)}",
-                                        style: AppTextStyles.heeboHeading
-                                            .copyWith(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 12,
-                                                color: AppColors.neutral60,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                decorationThickness: 2,
-                                                decorationColor:
-                                                    AppColors.neutral60),
-                                      )
-                                    : SizedBox(),
-                                SizedBox(
-                                  width: Dimensions.paddingSizeSmall,
-                                ),
-                                e.salePrice != null
-                                    ? Text(
-                                        "₹${e.salePrice!.toStringAsFixed(0)}",
-                                        style: AppTextStyles.heeboHeading
-                                            .copyWith(
-                                                color: AppColors.primary400,
-                                                fontWeight: FontWeight.w700),
-                                      )
-                                    : const SizedBox(),
-                              ],
-                            ),
-                          ),
+                          e.images != null && e.images!.isNotEmpty
+                              ? AspectRatio(
+                                  aspectRatio: 163 / 176,
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.radiusLarge),
+                                      child: CustomImage(image: e.images![0])))
+                              : const SizedBox(),
+                          SizedBox(height: Dimensions.paddingSizeExtraSmall),
                           Row(
                             children: [
-                              const Icon(
-                                Icons.star,
-                                color: AppColors.alertGold,
-                                size: 20,
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    e.mrp != null
+                                        ? Text(
+                                            "₹${e.mrp!.toStringAsFixed(0)}",
+                                            style: AppTextStyles.heeboHeading
+                                                .copyWith(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 12,
+                                                    color: AppColors.neutral60,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                    decorationThickness: 2,
+                                                    decorationColor:
+                                                        AppColors.neutral60),
+                                          )
+                                        : SizedBox(),
+                                    SizedBox(
+                                      width: Dimensions.paddingSizeSmall,
+                                    ),
+                                    e.salePrice != null
+                                        ? Text(
+                                            "₹${e.salePrice!.toStringAsFixed(0)}",
+                                            style: AppTextStyles.heeboHeading
+                                                .copyWith(
+                                                    color: AppColors.primary400,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                          )
+                                        : const SizedBox(),
+                                  ],
+                                ),
                               ),
-                              Text(
-                                " ${e.avgRating?.toStringAsFixed(1) ?? "0"}",
-                                style: AppTextStyles.heeboHeading.copyWith(
-                                    fontSize: 14, fontWeight: FontWeight.w400),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: AppColors.alertGold,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    " ${e.avgRating?.toStringAsFixed(1) ?? "0"}",
+                                    style: AppTextStyles.heeboHeading.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400),
+                                  )
+                                ],
                               )
                             ],
+                          ),
+                          Text(
+                            e.name ?? "",
+                            style: AppTextStyles.heeboHeading.copyWith(
+                                fontWeight: FontWeight.w500, fontSize: 15),
                           )
                         ],
                       ),
-                      Text(
-                        e.name ?? "",
-                        style: AppTextStyles.heeboHeading.copyWith(
-                            fontWeight: FontWeight.w500, fontSize: 15),
+                      Positioned(
+                        right: 0,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: SvgPicture.asset(
+                                e.inWishlist != null && e.inWishlist!
+                                    ? Images.heartFilled
+                                    : Images.heart)),
                       )
                     ],
                   ),
