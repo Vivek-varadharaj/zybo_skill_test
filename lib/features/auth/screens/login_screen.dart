@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
+import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/common/widgets/custom_text_field.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 import 'package:zybo_skill_test/features/auth/domain/models/verify_otp_model.dart';
@@ -15,6 +16,7 @@ import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
+import 'package:zybo_skill_test/util/custom_validator.dart';
 
 import 'package:zybo_skill_test/util/dimensions.dart';
 
@@ -86,21 +88,16 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: Dimensions.paddingSizeExtremeLarge),
-              CustomButton(
-                onTap: () async {
-                  ResponseModel responseModel =
-                      await Get.find<AuthController>().verifyOtp(loginData: {
-                    "phone_number":
-                        "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}"
-                  });
-
-                  if (responseModel.isSuccess) {
-                    Get.toNamed(Routes.verifyOtp);
-                  }
-                },
-                title: AppTexts.continueText,
-                backgroundColor: AppColors.primary400,
-              ),
+              GetBuilder<AuthController>(builder: (authController) {
+                return CustomButton(
+                  isLoading: authController.isLoading,
+                  onTap: () {
+                    verify();
+                  },
+                  title: AppTexts.continueText,
+                  backgroundColor: AppColors.primary400,
+                );
+              }),
               SizedBox(height: Dimensions.paddingSizeExtremeLarge),
               RichText(
                 textAlign: TextAlign.center,
@@ -152,5 +149,23 @@ class LoginScreen extends StatelessWidget {
         ),
       )),
     );
+  }
+
+  void verify() async {
+    PhoneValid phoneValid = await CustomValidator.isPhoneValid(
+        "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");
+    if (phoneValid.isValid) {
+      ResponseModel responseModel =
+          await Get.find<AuthController>().verifyOtp(loginData: {
+        "phone_number":
+            "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}"
+      });
+
+      if (responseModel.isSuccess) {
+        Get.toNamed(Routes.verifyOtp);
+      }
+    } else {
+      showCustomSnackbar("Phone number is not valid");
+    }
   }
 }

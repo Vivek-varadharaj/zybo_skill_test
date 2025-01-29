@@ -49,21 +49,24 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
             SizedBox(
               height: Dimensions.paddingSizeExtraLarge,
             ),
-            CustomButton(
-              onTap: () async {
-                ResponseModel responseModel =
-                    await Get.find<AuthController>().registration({
-                  "phone_number":
-                      "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
-                  "first_name": controller.text.trim()
-                });
+            GetBuilder<AuthController>(builder: (authController) {
+              return CustomButton(
+                isLoading: authController.isLoading,
+                onTap: () async {
+                  ResponseModel responseModel =
+                      await Get.find<AuthController>().registration({
+                    "phone_number":
+                        "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
+                    "first_name": controller.text.trim()
+                  });
 
-                if (responseModel.isSuccess) {
-                  Get.toNamed(Routes.dashboard);
-                }
-              },
-              title: AppTexts.submit,
-            )
+                  if (responseModel.isSuccess) {
+                    Get.toNamed(Routes.dashboard);
+                  }
+                },
+                title: AppTexts.submit,
+              );
+            })
           ],
         ),
       )),

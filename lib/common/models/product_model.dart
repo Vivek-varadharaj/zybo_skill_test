@@ -53,6 +53,62 @@ class ProductModel {
     this.taxRate,
   });
 
+  ProductModel copyWith({
+    int? id,
+    List<dynamic>? variations,
+    bool? inWishlist,
+    double? avgRating,
+    List<String>? images,
+    bool? variationExists,
+    double? salePrice,
+    List<AddonModel>? addons,
+    bool? available,
+    String? availableFrom,
+    String? availableTo,
+    String? name,
+    String? description,
+    String? caption,
+    String? featuredImage,
+    double? mrp,
+    int? stock,
+    bool? isActive,
+    String? discount,
+    String? createdDate,
+    String? productType,
+    dynamic? showingOrder,
+    String? variationName,
+    int? category,
+    int? taxRate,
+  }) {
+    return ProductModel(
+      id: id ?? this.id,
+      variations: variations ?? this.variations,
+      inWishlist: inWishlist ?? this.inWishlist,
+      avgRating: avgRating ?? this.avgRating,
+      images: images ?? this.images,
+      variationExists: variationExists ?? this.variationExists,
+      salePrice: salePrice ?? this.salePrice,
+      addons: addons ?? this.addons,
+      available: available ?? this.available,
+      availableFrom: availableFrom ?? this.availableFrom,
+      availableTo: availableTo ?? this.availableTo,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      caption: caption ?? this.caption,
+      featuredImage: featuredImage ?? this.featuredImage,
+      mrp: mrp ?? this.mrp,
+      stock: stock ?? this.stock,
+      isActive: isActive ?? this.isActive,
+      discount: discount ?? this.discount,
+      createdDate: createdDate ?? this.createdDate,
+      productType: productType ?? this.productType,
+      showingOrder: showingOrder ?? this.showingOrder,
+      variationName: variationName ?? this.variationName,
+      category: category ?? this.category,
+      taxRate: taxRate ?? this.taxRate,
+    );
+  }
+
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'],
@@ -85,36 +141,6 @@ class ProductModel {
       taxRate: json['tax_rate'],
     );
   }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'variations': variations,
-      'in_wishlist': inWishlist,
-      'avg_rating': avgRating,
-      'images': images,
-      'variation_exists': variationExists,
-      'sale_price': salePrice,
-      'addons': addons?.map((x) => x.toJson()).toList(),
-      'available': available,
-      'available_from': availableFrom,
-      'available_to': availableTo,
-      'name': name,
-      'description': description,
-      'caption': caption,
-      'featured_image': featuredImage,
-      'mrp': mrp,
-      'stock': stock,
-      'is_active': isActive,
-      'discount': discount,
-      'created_date': createdDate,
-      'product_type': productType,
-      'showing_order': showingOrder,
-      'variation_name': variationName,
-      'category': category,
-      'tax_rate': taxRate,
-    };
-  }
 }
 
 class AddonModel {
@@ -138,6 +164,28 @@ class AddonModel {
     required this.taxRate,
   });
 
+  AddonModel copyWith({
+    int? id,
+    double? price,
+    String? name,
+    String? description,
+    String? featuredImage,
+    int? stock,
+    bool? isActive,
+    int? taxRate,
+  }) {
+    return AddonModel(
+      id: id ?? this.id,
+      price: price ?? this.price,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      featuredImage: featuredImage ?? this.featuredImage,
+      stock: stock ?? this.stock,
+      isActive: isActive ?? this.isActive,
+      taxRate: taxRate ?? this.taxRate,
+    );
+  }
+
   factory AddonModel.fromJson(Map<String, dynamic> json) {
     return AddonModel(
       id: json['id'],
@@ -149,18 +197,5 @@ class AddonModel {
       isActive: json['is_active'] ?? false,
       taxRate: json['tax_rate'] ?? 0,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'price': price,
-      'name': name,
-      'description': description,
-      'featured_image': featuredImage,
-      'stock': stock,
-      'is_active': isActive,
-      'tax_rate': taxRate,
-    };
   }
 }

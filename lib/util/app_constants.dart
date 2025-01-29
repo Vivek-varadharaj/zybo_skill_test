@@ -10,4 +10,6 @@ class AppConstants {
   static const String productListApi = "/api/products";
   static const String verifyOtpApi = "/api/verify/";
   static const String profileApi = "/api/user-data/";
+  static const String wishlistApi = "/api/wishlist/";
+  static const String addOrRemoveFromWishlistApi = "/api/add-remove-wishlist/";
 }

@@ -5,4 +5,5 @@ class Images {
   static const String heart = 'assets/images/heart.svg';
   static const String heartFilled = 'assets/images/heart_filled.svg';
   static const String search = 'assets/images/search.svg';
+  static const String addToFavorite = 'assets/images/add_to_favorites.json';
 }

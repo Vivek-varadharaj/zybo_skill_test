@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:get/get.dart';
+import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 import 'package:zybo_skill_test/features/profile/controllers/profile_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
@@ -19,8 +20,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    Get.find<ProfileController>().getProfile();
   }
 
   @override
@@ -70,6 +69,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: AppTextStyles.heading3
                       .copyWith(fontWeight: FontWeight.w700),
                 ),
+                SizedBox(
+                  height: (Dimensions.paddingSizeExtraOverLarge),
+                ),
+                Center(
+                child: TextButton(
+                      onPressed: () {
+                        Get.find<AuthController>().logout();
+                      },
+                      child: Text(
+                        AppTexts.logout,
+                        style: AppTextStyles.button
+                            .copyWith(color: AppColors.primary400),
+                      )),
+                )
               ],
             );
           }),

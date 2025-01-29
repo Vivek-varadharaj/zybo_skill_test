@@ -7,6 +7,8 @@ import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
 import 'package:zybo_skill_test/features/home/domain/repositories/home_repository.dart';
 import 'package:zybo_skill_test/features/profile/controllers/profile_controller.dart';
 import 'package:zybo_skill_test/features/profile/domain/repository/profile_repository.dart';
+import 'package:zybo_skill_test/features/wishlist/controller/wishlist_controller.dart';
+import 'package:zybo_skill_test/features/wishlist/domain/respository/wishlist_repository.dart';
 import 'package:zybo_skill_test/util/app_constants.dart';
 
 Future<void> init() async {
@@ -32,5 +34,11 @@ Future<void> init() async {
       () => ProfileController(
           profileRepository:
               ProfileRepository(apiClient: Get.find<ApiClient>())),
+      fenix: true);
+
+  Get.lazyPut(
+      () => WishlistController(
+          wishlistRepository:
+              WishlistRepository(apiClient: Get.find<ApiClient>())),
       fenix: true);
 }

@@ -18,4 +18,6 @@ class AppTexts {
   static const String myProfile = "My Profile";
   static const String name = "Name";
   static const String phone = "Phone";
+  static const String wishlist= "Wishlist";
+  static const String logout = "Logout";
 }

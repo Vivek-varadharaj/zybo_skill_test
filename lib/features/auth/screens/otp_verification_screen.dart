@@ -7,6 +7,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:pinput/pinput.dart';
 import 'package:zybo_skill_test/common/widgets/custom_back_button.dart';
 import 'package:zybo_skill_test/common/widgets/custom_button.dart';
+import 'package:zybo_skill_test/common/widgets/custom_snackbar.dart';
 import 'package:zybo_skill_test/features/auth/controllers/auth_controller.dart';
 import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
@@ -16,8 +17,21 @@ import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
 
-class OtpVerificationScreen extends StatelessWidget {
+class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
+
+  @override
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+}
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  late TextEditingController pinputController;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pinputController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +61,7 @@ class OtpVerificationScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomBackButton(),
+              const CustomBackButton(),
               Expanded(
                   child: ListView(
                 padding:
@@ -110,6 +124,7 @@ class OtpVerificationScreen extends StatelessWidget {
                     height: Dimensions.paddingSizeExtraOverLarge,
                   ),
                   Pinput(
+                    controller: pinputController,
                     length: 4,
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: defaultPinTheme.copyWith(
@@ -154,17 +169,16 @@ class OtpVerificationScreen extends StatelessWidget {
                   SizedBox(
                     height: Dimensions.paddingSizeExtraOverLarge,
                   ),
-                  CustomButton(
-                    backgroundColor: AppColors.primary400,
-                    title: AppTexts.submit,
-                    onTap: () async {
-                      if (Get.find<AuthController>().otpModel?.user ?? false) {
-                        Get.offAllNamed(Routes.dashboard);
-                      } else {
-                        Get.toNamed(Routes.enterName);
-                      }
-                    },
-                  )
+                  GetBuilder<AuthController>(builder: (authController) {
+                    return CustomButton(
+                      isLoading: authController.isLoading,
+                      backgroundColor: AppColors.primary400,
+                      title: AppTexts.submit,
+                      onTap: () {
+                        verifyOtp();
+                      },
+                    );
+                  })
                 ],
               ))
             ],
@@ -172,5 +186,20 @@ class OtpVerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  verifyOtp() {
+    if (pinputController.text.trim().length < 4) {
+      showCustomSnackbar("Enter Otp");
+    } else if (pinputController.text.trim() !=
+        Get.find<AuthController>().otpModel?.otp) {
+      showCustomSnackbar("Invalid Otp");
+    } else {
+      if (Get.find<AuthController>().otpModel?.user ?? false) {
+        Get.offAllNamed(Routes.dashboard);
+      } else {
+        Get.toNamed(Routes.enterName);
+      }
+    }
   }
 }
