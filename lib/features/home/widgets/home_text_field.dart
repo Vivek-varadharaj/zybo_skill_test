@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/widgets/custom_svg_image.dart';
+import 'package:zybo_skill_test/features/search/controllers/search_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
 import 'package:zybo_skill_test/util/images.dart';
 
-class HomeTextField extends StatelessWidget {
-  const HomeTextField({super.key});
+class HomeTextField extends StatefulWidget {
+  const HomeTextField({super.key, required this.isEnabled});
+  final bool isEnabled;
 
+  @override
+  State<HomeTextField> createState() => _HomeTextFieldState();
+}
+
+class _HomeTextFieldState extends State<HomeTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,6 +40,11 @@ class HomeTextField extends StatelessWidget {
         children: [
           Expanded(
               child: TextField(
+            onChanged: (value) {
+              Get.find<SearchProductsController>().changeQuery(value);
+            },
+            readOnly: !widget.isEnabled,
+            enabled: widget.isEnabled,
             decoration: InputDecoration(
                 hintStyle: AppTextStyles.latoPara.copyWith(
                     color: AppColors.neutral60, fontWeight: FontWeight.w400),

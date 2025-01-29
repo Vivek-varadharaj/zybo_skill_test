@@ -10,4 +10,5 @@ class Routes {
   static const verifyOtp = "/verifyOtp";
   static const enterName = "/enterName";
   static const dashboard = "/dashboard";
+    static const search = "/search";
 }

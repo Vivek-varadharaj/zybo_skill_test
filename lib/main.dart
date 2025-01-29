@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
 import 'package:zybo_skill_test/helper/app_pages.dart';
 import 'helper/get_di.dart' as di;

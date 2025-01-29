@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:zybo_skill_test/common/widgets/product_card.dart';
 import 'package:zybo_skill_test/features/wishlist/controller/wishlist_controller.dart';
+import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
@@ -38,22 +39,34 @@ class _WishlistScreenState extends State<WishlistScreen> {
             SizedBox(
               height: Dimensions.paddingSizeExtraLarge,
             ),
-            if (Get.find<WishlistController>().wishlistProducts != null &&
-                Get.find<WishlistController>().wishlistProducts!.isNotEmpty)
-              GetBuilder<WishlistController>(builder: (wishlistController) {
-                return Expanded(
-                    child: GridView.count(
-                  mainAxisSpacing: 32,
-                  crossAxisSpacing: 16,
-                  physics: const ClampingScrollPhysics(),
-                  childAspectRatio: 163 / 232,
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  children: wishlistController.wishlistProducts!
-                      .map((product) => ProductCard(productModel: product))
-                      .toList(),
-                ));
-              })
+            GetBuilder<WishlistController>(builder: (wishlistController) {
+              return Expanded(
+                child: (Get.find<WishlistController>().wishlistProducts !=
+                            null &&
+                        Get.find<WishlistController>()
+                            .wishlistProducts!
+                            .isNotEmpty)
+                    ? GridView.count(
+                        mainAxisSpacing: 32,
+                        crossAxisSpacing: 16,
+                        physics: const ClampingScrollPhysics(),
+                        childAspectRatio: 163 / 232,
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: wishlistController.wishlistProducts!
+                            .map(
+                                (product) => ProductCard(productModel: product))
+                            .toList(),
+                      )
+                    : Center(
+                        child: Text(
+                          "No products found",
+                          style: AppTextStyles.heading3
+                              .copyWith(color: AppColors.primary400),
+                        ),
+                      ),
+              );
+            })
           ],
         ),
       )),

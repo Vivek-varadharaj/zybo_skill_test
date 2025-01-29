@@ -34,7 +34,10 @@ class HomeController extends GetxController {
   }
 
   Future<void> getProductList({bool shouldUpdate = false}) async {
-    shouldUpdate ? isLoading = true : isLoading = false;
+    if (shouldUpdate) {
+      isLoading = true;
+      update();
+    }
     update();
     popularProductList = await homeRepository.getProductList();
     if (shouldUpdate) {

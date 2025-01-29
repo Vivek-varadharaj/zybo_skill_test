@@ -5,6 +5,7 @@ import 'package:zybo_skill_test/features/auth/screens/otp_verification_screen.da
 import 'package:zybo_skill_test/features/dashboard/screens/dashboard_screen.dart';
 import 'package:zybo_skill_test/features/home/screens/home_screen.dart';
 import 'package:zybo_skill_test/features/profile/screens/profile_screen.dart';
+import 'package:zybo_skill_test/features/search/screens/search_screen.dart';
 import 'package:zybo_skill_test/features/splash/screens/splash_screen.dart';
 
 part 'app_routes.dart';
@@ -42,6 +43,10 @@ class AppPages {
     GetPage(
       name: Routes.profile,
       page: () => const ProfileScreen(),
+    ),
+    GetPage(
+      name: Routes.search,
+      page: () => const SearchScreen(),
     ),
   ];
 }

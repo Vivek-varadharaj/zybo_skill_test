@@ -6,8 +6,10 @@ import 'package:zybo_skill_test/util/images.dart';
 void showLottieDialog() {
   Get.dialog(
     Dialog(
+      surfaceTintColor: Colors.transparent,
       backgroundColor: Colors.transparent,
       elevation: 0,
+      shadowColor: Colors.transparent,
       child: Center(
         child: Lottie.asset(
           Images.addToFavorite,
@@ -21,7 +23,7 @@ void showLottieDialog() {
     barrierDismissible: false,
   );
 
-  Future.delayed(const Duration(seconds: 2), () {
+  Future.delayed(const Duration(milliseconds: 1500), () {
     if (Get.isDialogOpen ?? false) {
       Get.back();
     }

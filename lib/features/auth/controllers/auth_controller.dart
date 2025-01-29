@@ -45,10 +45,12 @@ class AuthController extends GetxController {
     return ResponseModel(response.statusCode == 200, response.body['message']);
   }
 
-  Future<ResponseModel> verifyOtp(
-      {required Map loginData, bool isOtp = false}) async {
+  Future<ResponseModel> verifyOtp({
+    required Map loginData,
+  }) async {
     _isLoading = true;
     update();
+
     Response response = await authRepository.verifyOtp(loginData);
     _otpModel = VerifyOtpModel.fromJson(response.body);
 
@@ -62,8 +64,8 @@ class AuthController extends GetxController {
     update();
   }
 
-  void changePhoneNumber(String? value) {
-    _phoneNumber = value ?? "";
+  void changePhoneNumber(String value) {
+    _phoneNumber = value;
     update();
   }
 

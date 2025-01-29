@@ -12,4 +12,5 @@ class AppConstants {
   static const String profileApi = "/api/user-data/";
   static const String wishlistApi = "/api/wishlist/";
   static const String addOrRemoveFromWishlistApi = "/api/add-remove-wishlist/";
+  static const String searchProductApi = "/api/search/";
 }

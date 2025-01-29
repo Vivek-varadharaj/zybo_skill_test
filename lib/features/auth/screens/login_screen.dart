@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -82,18 +84,19 @@ class LoginScreen extends StatelessWidget {
                   Expanded(
                       child: CustomTextField(
                     textInputType: TextInputType.phone,
-                    onChanged: Get.find<AuthController>().changePhoneNumber,
+                    onChanged: (value) {
+                      Get.find<AuthController>().changePhoneNumber(value!);
+                    },
                     hintText: AppTexts.enterPhone,
                   ))
                 ],
               ),
               SizedBox(height: Dimensions.paddingSizeExtremeLarge),
               GetBuilder<AuthController>(builder: (authController) {
+                log(authController.isLoading.toString());
                 return CustomButton(
                   isLoading: authController.isLoading,
-                  onTap: () {
-                    verify();
-                  },
+                  onTap: verify,
                   title: AppTexts.continueText,
                   backgroundColor: AppColors.primary400,
                 );
@@ -165,6 +168,7 @@ class LoginScreen extends StatelessWidget {
         Get.toNamed(Routes.verifyOtp);
       }
     } else {
+      log("${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");
       showCustomSnackbar("Phone number is not valid");
     }
   }
