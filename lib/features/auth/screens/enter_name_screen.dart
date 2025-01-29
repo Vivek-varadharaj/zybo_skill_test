@@ -63,6 +63,9 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
   }
 
   register() async {
+    if (controller.text.trim().length < 2) {
+      return showCustomSnackbar(AppTexts.enterValidName);
+    }
     ResponseModel responseModel =
         await Get.find<AuthController>().registration({
       "phone_number":
@@ -71,9 +74,11 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
     });
 
     if (responseModel.isSuccess) {
-      Get.toNamed(Routes.dashboard);
+      Get.offAllNamed(
+        Routes.dashboard,
+      );
     } else {
-      showCustomSnackbar(responseModel.message ?? "Registration failed");
+      showCustomSnackbar(responseModel.message ?? AppTexts.registrationFailed);
     }
   }
 }

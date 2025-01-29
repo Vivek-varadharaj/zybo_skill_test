@@ -18,6 +18,16 @@ class AppTexts {
   static const String myProfile = "My Profile";
   static const String name = "Name";
   static const String phone = "Phone";
-  static const String wishlist= "Wishlist";
+  static const String wishlist = "Wishlist";
   static const String logout = "Logout";
+  static const String byAccepting = "By Continuing you accepting the ";
+  static const String termsOfUse = "Terms of Use";
+  static const String privacyPolicy = "Privacy Policy";
+  static const String phoneNumberIsNotValid = "Phone number is not valid";
+  static const String gettingOtpFailed= "Getting otp failed";
+  static const String registrationFailed = "Registration failed";
+  static const String enterOtp="Enter OPT";
+  static const String invalidOtp= "Invalid OTP";
+  static const String enterValidName = "Please enter valid name";
+  static const String  noProductsFound=  "No products found";
 }

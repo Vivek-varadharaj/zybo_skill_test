@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
 
@@ -25,7 +25,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Container(
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: AppColors.neutral10))),
-      padding: EdgeInsets.symmetric(vertical: 16.sp, horizontal: 6.sp),
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 6),
       child: TextField(
         keyboardType: widget.textInputType,
           onChanged: widget.onChanged,

@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:get/get.dart';
 
 import 'package:zybo_skill_test/common/models/response_model.dart';
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                           });
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 19.sp),
+                      padding: EdgeInsets.symmetric(vertical: 17.5),
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(color: AppColors.neutral10))),
@@ -109,11 +109,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                        text: "By Continuing you accepting the ",
+                        text: AppTexts.byAccepting,
                         style: AppTextStyles.para5
                             .copyWith(fontWeight: FontWeight.w300)),
                     TextSpan(
-                      text: "Terms of Use",
+                      text: AppTexts.termsOfUse,
                       style: AppTextStyles.para5.copyWith(
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
@@ -129,7 +129,7 @@ class LoginScreen extends StatelessWidget {
                           decorationThickness: 2),
                     ),
                     TextSpan(
-                      text: "Privacy Policy",
+                      text: AppTexts.privacyPolicy,
                       style: AppTextStyles.para5.copyWith(
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
@@ -159,11 +159,11 @@ class LoginScreen extends StatelessWidget {
       if (responseModel.isSuccess) {
         Get.toNamed(Routes.verifyOtp);
       } else {
-        showCustomSnackbar(responseModel.message ?? "Getting otp failed");
+        showCustomSnackbar(responseModel.message ?? AppTexts.gettingOtpFailed);
       }
     } else {
       log("${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");
-      showCustomSnackbar("Phone number is not valid");
+      showCustomSnackbar(AppTexts.phoneNumberIsNotValid);
     }
   }
 }

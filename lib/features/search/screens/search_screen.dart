@@ -7,6 +7,7 @@ import 'package:zybo_skill_test/features/home/widgets/home_text_field.dart';
 import 'package:zybo_skill_test/features/search/controllers/search_controller.dart';
 import 'package:zybo_skill_test/util/app_colors.dart';
 import 'package:zybo_skill_test/util/app_text_styles.dart';
+import 'package:zybo_skill_test/util/app_texts.dart';
 import 'package:zybo_skill_test/util/dimensions.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -28,7 +29,8 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(Dimensions.paddingSizeLarge),
+          padding:
+              EdgeInsets.symmetric(horizontal: Dimensions.paddingSizeLarge),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           controller.query.isNotEmpty
                       ? Center(
                           child: Text(
-                            "No products found",
+                            AppTexts.noProductsFound,
                             style: AppTextStyles.heading3
                                 .copyWith(color: AppColors.primary400),
                           ),
@@ -61,8 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
                           shrinkWrap: true,
                           crossAxisCount: 2,
                           children: controller.searchedProducts
-                              .map((product) =>
-                                  ProductCard(productModel: product))
+                              .map((product) => ProductCard(
+                                    productModel: product,
+                                    isFromSearch: true,
+                                  ))
                               .toList(),
                         ),
                 );
@@ -76,7 +80,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
     Get.find<SearchProductsController>().query = "";
   }

@@ -12,8 +12,10 @@ import 'package:zybo_skill_test/util/dimensions.dart';
 import 'package:zybo_skill_test/util/images.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.productModel});
+  const ProductCard(
+      {super.key, required this.productModel, this.isFromSearch = false});
   final ProductModel productModel;
+  final bool isFromSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -85,30 +87,32 @@ class ProductCard extends StatelessWidget {
             )
           ],
         ),
-        Positioned(
-          right: 0,
-          child: GetBuilder<WishlistController>(builder: (wishlistController) {
-            return IconButton(
-                onPressed: () async {
-                  onFavoritePressed();
-                },
-                icon: wishlistController.isLoading &&
-                        productModel.id == wishlistController.loadingId
-                    ? const Center(
-                        child: SizedBox(
-                          height: 16,
-                          width: 16,
-                          child: CircularProgressIndicator(
-                            color: AppColors.primary400,
+        if (!isFromSearch)
+          Positioned(
+            right: 0,
+            child:
+                GetBuilder<WishlistController>(builder: (wishlistController) {
+              return IconButton(
+                  onPressed: () async {
+                    onFavoritePressed();
+                  },
+                  icon: wishlistController.isLoading &&
+                          productModel.id == wishlistController.loadingId
+                      ? const Center(
+                          child: SizedBox(
+                            height: 16,
+                            width: 16,
+                            child: CircularProgressIndicator(
+                              color: AppColors.primary400,
+                            ),
                           ),
-                        ),
-                      )
-                    : SvgPicture.asset(productModel.inWishlist != null &&
-                            productModel.inWishlist!
-                        ? Images.heartFilled
-                        : Images.heart));
-          }),
-        )
+                        )
+                      : SvgPicture.asset(productModel.inWishlist != null &&
+                              productModel.inWishlist!
+                          ? Images.heartFilled
+                          : Images.heart));
+            }),
+          )
       ],
     );
   }
@@ -117,7 +121,6 @@ class ProductCard extends StatelessWidget {
     ResponseModel responseModel =
         await Get.find<WishlistController>().addToWishList(productModel);
     if (responseModel.isSuccess) {
-      showCustomSnackbar(responseModel.message ?? "");
     } else {
       showCustomSnackbar(responseModel.message ?? "");
     }
