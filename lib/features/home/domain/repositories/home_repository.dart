@@ -13,8 +13,9 @@ class HomeRepository {
 
   Future<List<BannerModel>?> getBannerList() async {
     List<BannerModel>? bannerModel;
-    Response response = await apiClient.getData(AppConstants.homeBannerListApi,
-        handleError: false);
+    Response response = await apiClient.getData(
+      AppConstants.homeBannerListApi,
+    );
     if (response.statusCode == 200) {
       List responseData = response.body;
       log(responseData[0]['product'].toString());
@@ -32,8 +33,9 @@ class HomeRepository {
 
   Future<List<ProductModel>?> getProductList() async {
     List<ProductModel>? bannerModel;
-    Response response = await apiClient.getData(AppConstants.productListApi,
-        handleError: false);
+    Response response = await apiClient.getData(
+      AppConstants.productListApi,
+    );
     if (response.statusCode == 200) {
       List responseData = response.body;
       log(responseData[0]['product'].toString());

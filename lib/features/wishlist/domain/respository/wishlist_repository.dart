@@ -13,8 +13,9 @@ class WishlistRepository {
   Future<List<ProductModel>?> getWishlist() async {
     List<ProductModel>? wishList;
     try {
-      Response response =
-          await apiClient.getData(AppConstants.wishlistApi, handleError: false);
+      Response response = await apiClient.getData(
+        AppConstants.wishlistApi,
+      );
       if (response.statusCode == 200) {
         List responseData = response.body;
         wishList = responseData

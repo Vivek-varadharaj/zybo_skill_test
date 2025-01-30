@@ -11,8 +11,9 @@ class ProfileRepository {
 
   Future<ProfileModel?> getProfile() async {
     try {
-      Response response =
-          await apiClient.getData(AppConstants.profileApi, handleError: false);
+      Response response = await apiClient.getData(
+        AppConstants.profileApi,
+      );
       if (response.statusCode == 200) {
         return ProfileModel.fromJson(response.body);
       } else {

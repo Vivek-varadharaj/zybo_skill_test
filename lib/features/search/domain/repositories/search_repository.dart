@@ -14,7 +14,6 @@ class SearchRepository {
       Response response = await apiClient.postData(
         AppConstants.searchProductApi,
         {"query": query},
-        handleError: false,
       );
 
       if (response.statusCode == 200) {
