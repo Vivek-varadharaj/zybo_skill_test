@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                           });
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 17.5),
+                      padding: EdgeInsets.symmetric(vertical: 16),
                       decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(color: AppColors.neutral10))),
@@ -68,8 +68,9 @@ class LoginScreen extends StatelessWidget {
                           GetBuilder<AuthController>(builder: (authController) {
                         return Text(
                           "+${authController.selectedCountry.phoneCode}",
-                          style: AppTextStyles.heading7
-                              .copyWith(color: AppColors.neutral80),
+                          style: AppTextStyles.heading7.copyWith(
+                              color: AppColors.neutral80,
+                              fontSize: Dimensions.fontSizeDefault),
                         );
                       }),
                     ),

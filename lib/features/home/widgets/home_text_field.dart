@@ -47,7 +47,9 @@ class _HomeTextFieldState extends State<HomeTextField> {
             enabled: widget.isEnabled,
             decoration: InputDecoration(
                 hintStyle: AppTextStyles.latoPara.copyWith(
-                    color: AppColors.neutral60, fontWeight: FontWeight.w400),
+                    fontSize: Dimensions.fontSizeDefault,
+                    color: AppColors.neutral60,
+                    fontWeight: FontWeight.w400),
                 isCollapsed: true,
                 border: InputBorder.none,
                 hintText: AppTexts.search),

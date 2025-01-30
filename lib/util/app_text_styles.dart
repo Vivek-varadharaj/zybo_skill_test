@@ -24,20 +24,20 @@ class AppTextStyles {
 
   // Paragraphs
   static TextStyle para2 = GoogleFonts.manrope(
-    fontSize: 14.0,
+    fontSize: 15.0,
     fontWeight: FontWeight.w400,
     height: 48.0 / 35.0,
     textBaseline: TextBaseline.alphabetic,
   );
 
   static TextStyle para5 = GoogleFonts.manrope(
-    fontSize: 12.0,
+    fontSize: 13.0,
     textBaseline: TextBaseline.alphabetic,
   );
 
   // Buttons
   static TextStyle button = GoogleFonts.oxygen(
-      fontSize: 16.0,
+      fontSize: 17.0,
       fontWeight: FontWeight.w700,
       textBaseline: TextBaseline.alphabetic,
       color: AppColors.neutral0);
