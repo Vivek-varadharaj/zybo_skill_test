@@ -10,15 +10,17 @@ class WishlistController extends GetxController {
   final WishlistRepository wishlistRepository;
   WishlistController({required this.wishlistRepository});
 
-  List<ProductModel>? wishlistProducts = [];
+  List<ProductModel>? _wishlistProducts = [];
   bool _isLoading = false;
-  bool get isLoading => _isLoading;
+  int? _loadingId;
 
-  int? loadingId;
+  List<ProductModel>? get wishlistProducts => _wishlistProducts;
+  bool get isLoading => _isLoading;
+  int? get loadingId => _loadingId;
 
   Future<void> getWishlist() async {
     try {
-      wishlistProducts = await wishlistRepository.getWishlist();
+      _wishlistProducts = await wishlistRepository.getWishlist();
       update();
     } catch (e) {
       log('Error getting wishlist: $e');
@@ -26,7 +28,7 @@ class WishlistController extends GetxController {
   }
 
   Future<ResponseModel> addToWishList(ProductModel product) async {
-    loadingId = product.id;
+    _loadingId = product.id;
     _isLoading = true;
     update();
     try {

@@ -41,7 +41,7 @@ class _HomeTextFieldState extends State<HomeTextField> {
           Expanded(
               child: TextField(
             onChanged: (value) {
-              Get.find<SearchProductsController>().changeQuery(value);
+              Get.find<SearchProductsController>().query = value;
             },
             readOnly: !widget.isEnabled,
             enabled: widget.isEnabled,

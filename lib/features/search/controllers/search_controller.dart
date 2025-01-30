@@ -8,18 +8,29 @@ import 'package:zybo_skill_test/features/search/domain/repositories/search_repos
 class SearchProductsController extends GetxController {
   final SearchRepository searchRepository;
   SearchProductsController({required this.searchRepository});
+
   Timer? _debounce;
   bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  String query = "";
   List<ProductModel> _searchedProducts = [];
+  String _query = "";
+
+  bool get isLoading => _isLoading;
   List<ProductModel> get searchedProducts => _searchedProducts;
+  String get query => _query;
+
+  set query(String value) {
+    _query = value;
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
+      await searchProducts();
+    });
+  }
 
   Future<void> searchProducts() async {
     try {
       _isLoading = true;
       update();
-      _searchedProducts = await searchRepository.searchProducts(query);
+      _searchedProducts = await searchRepository.searchProducts(_query);
     } catch (e) {
       log("Error in searchProducts: $e");
       _searchedProducts = [];
@@ -27,13 +38,5 @@ class SearchProductsController extends GetxController {
       _isLoading = false;
       update();
     }
-  }
-
-  void changeQuery(String value) {
-    query = value;
-    _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () async {
-      await searchProducts();
-    });
   }
 }

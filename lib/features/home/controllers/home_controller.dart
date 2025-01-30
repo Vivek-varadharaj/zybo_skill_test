@@ -8,15 +8,20 @@ import 'package:zybo_skill_test/features/home/domain/repositories/home_repositor
 class HomeController extends GetxController {
   final HomeRepository homeRepository;
   HomeController({required this.homeRepository});
-  List<BannerModel>? homeBannerList = [];
-  List<ProductModel>? popularProductList = [];
-  bool isLoading = false;
+
+  List<BannerModel>? _homeBannerList = [];
+  List<ProductModel>? _popularProductList = [];
+  bool _isLoading = false;
   int _bannerIndex = 0;
+
+  List<BannerModel>? get homeBannerList => _homeBannerList;
+  List<ProductModel>? get popularProductList => _popularProductList;
+  bool get isLoading => _isLoading;
   int get bannerIndex => _bannerIndex;
 
   Future<void> getHomePageData() async {
     try {
-      isLoading = true;
+      _isLoading = true;
       update();
       await Future.wait([
         getBannerList(),
@@ -25,15 +30,15 @@ class HomeController extends GetxController {
     } catch (e) {
       log("Error fetching home page data: $e");
     } finally {
-      isLoading = false;
+      _isLoading = false;
       update();
     }
   }
 
   Future<void> getBannerList() async {
     try {
-      homeBannerList = await homeRepository.getBannerList();
-      log(homeBannerList?.length.toString() ?? "it is null");
+      _homeBannerList = await homeRepository.getBannerList();
+      log(_homeBannerList?.length.toString() ?? "it is null");
     } catch (e) {
       log("Error fetching banners: $e");
     }
@@ -42,15 +47,15 @@ class HomeController extends GetxController {
   Future<void> getProductList({bool shouldUpdate = false}) async {
     try {
       if (shouldUpdate) {
-        isLoading = true;
+        _isLoading = true;
         update();
       }
-      popularProductList = await homeRepository.getProductList();
+      _popularProductList = await homeRepository.getProductList();
     } catch (e) {
       log("Error fetching products: $e");
     } finally {
       if (shouldUpdate) {
-        isLoading = false;
+        _isLoading = false;
         update();
       }
     }
@@ -58,15 +63,17 @@ class HomeController extends GetxController {
 
   Future<void> toggleFavorite(ProductModel product) async {
     try {
-      int index = popularProductList!.indexWhere((item) => item.id == product.id);
+      int index =
+          _popularProductList!.indexWhere((item) => item.id == product.id);
       if (index != -1) {
-        if (popularProductList![index].inWishlist == null || !popularProductList![index].inWishlist!) {
+        if (_popularProductList![index].inWishlist == null ||
+            !_popularProductList![index].inWishlist!) {
           showLottieDialog();
         }
-        popularProductList![index] = popularProductList![index].copyWith(
-            inWishlist: popularProductList![index].inWishlist == null
+        _popularProductList![index] = _popularProductList![index].copyWith(
+            inWishlist: _popularProductList![index].inWishlist == null
                 ? true
-                : !popularProductList![index].inWishlist!);
+                : !_popularProductList![index].inWishlist!);
       }
       update();
     } catch (e) {

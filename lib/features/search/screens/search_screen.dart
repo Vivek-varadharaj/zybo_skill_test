@@ -45,30 +45,39 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               GetBuilder<SearchProductsController>(builder: (controller) {
                 return Expanded(
-                  child: (controller.searchedProducts.isEmpty) &&
-                          controller.query.isNotEmpty
+                  child: controller.isLoading
                       ? Center(
-                          child: Text(
-                            AppTexts.noProductsFound,
-                            style: AppTextStyles.heading3
-                                .copyWith(color: AppColors.primary400),
-                          ),
+                          child: SizedBox(
+                              height: 16,
+                              width: 16,
+                              child: CircularProgressIndicator(
+                                color: AppColors.primary400,
+                              )),
                         )
-                      : GridView.count(
-                          padding: EdgeInsets.zero,
-                          mainAxisSpacing: 32,
-                          crossAxisSpacing: 16,
-                          physics: const ClampingScrollPhysics(),
-                          childAspectRatio: 163 / 232,
-                          shrinkWrap: true,
-                          crossAxisCount: 2,
-                          children: controller.searchedProducts
-                              .map((product) => ProductCard(
-                                    productModel: product,
-                                    isFromSearch: true,
-                                  ))
-                              .toList(),
-                        ),
+                      : (controller.searchedProducts.isEmpty) &&
+                              controller.query.isNotEmpty
+                          ? Center(
+                              child: Text(
+                                AppTexts.noProductsFound,
+                                style: AppTextStyles.heading3
+                                    .copyWith(color: AppColors.primary400),
+                              ),
+                            )
+                          : GridView.count(
+                              padding: EdgeInsets.zero,
+                              mainAxisSpacing: 32,
+                              crossAxisSpacing: 16,
+                              physics: const ClampingScrollPhysics(),
+                              childAspectRatio: 163 / 232,
+                              shrinkWrap: true,
+                              crossAxisCount: 2,
+                              children: controller.searchedProducts
+                                  .map((product) => ProductCard(
+                                        productModel: product,
+                                        isFromSearch: true,
+                                      ))
+                                  .toList(),
+                            ),
                 );
               })
             ],
