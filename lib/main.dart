@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -23,14 +24,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      defaultTransition: Transition.circularReveal,
-      debugShowCheckedModeBanner: false,
-      transitionDuration: Duration(milliseconds: 350),
-      getPages: AppPages.routes,
-      initialRoute: AppPages.initial,
-      title: 'Flutter Demo',
-      home: const SplashScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      child: GetMaterialApp(
+        defaultTransition: Transition.circularReveal,
+        debugShowCheckedModeBanner: false,
+        transitionDuration: Duration(milliseconds: 350),
+        getPages: AppPages.routes,
+        initialRoute: AppPages.initial,
+        title: 'Flutter Demo',
+        home: const SplashScreen(),
+      ),
     );
   }
 }

@@ -33,9 +33,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: Dimensions.paddingSizeExtraOverLarge,
-              ),
+              SizedBox(height: 60),
               Text(
                 AppTexts.login,
                 style: AppTextStyles.heading1,

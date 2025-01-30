@@ -29,9 +29,7 @@ class AuthRepository {
       Response response = await apiClient
           .postData(AppConstants.verifyOtpApi, signUpBody, handleError: false);
       if (response.statusCode == 200) {
-        if (response.body['token'] != null) {
-          await saveUserToken(response.body['token']['access']);
-        }
+        if (response.body['token'] != null) {}
         return response;
       }
       throw Exception(response.body['message'] ?? "OTP verification failed");

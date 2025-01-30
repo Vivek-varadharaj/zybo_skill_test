@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/models/response_model.dart';
@@ -35,6 +37,28 @@ class AuthController extends GetxController {
 
   RegisterResponse? _registerResponse;
   RegisterResponse? get registerResponse => _registerResponse;
+
+  int _secondsRemaining = 60;
+  Timer? _timer;
+
+  int get secondsRemaining => _secondsRemaining;
+  bool get isResendEnabled => _secondsRemaining == 0;
+
+  void startTimer() {
+    _timer?.cancel();
+    _secondsRemaining = 60;
+    update();
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        _secondsRemaining--;
+        update();
+      } else {
+        timer.cancel();
+        update();
+      }
+    });
+  }
 
   Future<ResponseModel> registration(
       {required String phoneNumber, required String name}) async {
@@ -100,4 +124,12 @@ class AuthController extends GetxController {
       await authRepository.saveUserToken(token);
     } catch (e) {}
   }
+
+  @override
+  void onClose() {
+    _timer?.cancel();
+    super.onClose();
+  }
+
+  
 }
