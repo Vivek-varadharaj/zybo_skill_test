@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       transitionDuration: Duration(milliseconds: 350),
       getPages: AppPages.routes,
       initialRoute: AppPages.initial,
-      title: 'Flutter Demo',
+      title: 'Zybo Skill',
       home: const SplashScreen(),
     );
   }
