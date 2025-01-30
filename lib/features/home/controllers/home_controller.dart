@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:zybo_skill_test/common/models/product_model.dart';
 import 'package:zybo_skill_test/common/widgets/show_lottie_dialog.dart';
 import 'package:zybo_skill_test/features/home/domain/models/banner_model.dart';
@@ -16,56 +15,73 @@ class HomeController extends GetxController {
   int get bannerIndex => _bannerIndex;
 
   Future<void> getHomePageData() async {
-    isLoading = true;
-
-    update();
-    await Future.wait([
-      getBannerList(),
-      getProductList(),
-    ]);
-    isLoading = false;
-    update();
-  }
-
-  Future<void> getBannerList() async {
-    homeBannerList = await homeRepository.getBannerList();
-
-    log(homeBannerList?.length.toString() ?? "it is null");
-  }
-
-  Future<void> getProductList({bool shouldUpdate = false}) async {
-    if (shouldUpdate) {
+    try {
       isLoading = true;
       update();
-    }
-    update();
-    popularProductList = await homeRepository.getProductList();
-    if (shouldUpdate) {
+      await Future.wait([
+        getBannerList(),
+        getProductList(),
+      ]);
+    } catch (e) {
+      log("Error fetching home page data: $e");
+    } finally {
       isLoading = false;
       update();
     }
   }
 
-  Future<void> toggleFavorite(ProductModel product) async {
-    int index = popularProductList!.indexWhere((item) => item.id == product.id);
-    if (index != -1) {
-      if (popularProductList![index].inWishlist == null ||
-          !popularProductList![index].inWishlist!) {
-        showLottieDialog();
-      }
-
-      popularProductList![index] = popularProductList![index].copyWith(
-          inWishlist: popularProductList![index].inWishlist == null
-              ? true
-              : !popularProductList![index].inWishlist!);
+  Future<void> getBannerList() async {
+    try {
+      homeBannerList = await homeRepository.getBannerList();
+      log(homeBannerList?.length.toString() ?? "it is null");
+    } catch (e) {
+      log("Error fetching banners: $e");
     }
-    update();
+  }
+
+  Future<void> getProductList({bool shouldUpdate = false}) async {
+    try {
+      if (shouldUpdate) {
+        isLoading = true;
+        update();
+      }
+      popularProductList = await homeRepository.getProductList();
+    } catch (e) {
+      log("Error fetching products: $e");
+    } finally {
+      if (shouldUpdate) {
+        isLoading = false;
+        update();
+      }
+    }
+  }
+
+  Future<void> toggleFavorite(ProductModel product) async {
+    try {
+      int index = popularProductList!.indexWhere((item) => item.id == product.id);
+      if (index != -1) {
+        if (popularProductList![index].inWishlist == null || !popularProductList![index].inWishlist!) {
+          showLottieDialog();
+        }
+        popularProductList![index] = popularProductList![index].copyWith(
+            inWishlist: popularProductList![index].inWishlist == null
+                ? true
+                : !popularProductList![index].inWishlist!);
+      }
+      update();
+    } catch (e) {
+      log("Error toggling favorite: $e");
+    }
   }
 
   void setBannerIndex(int index, bool notify) {
-    _bannerIndex = index;
-    if (notify) {
-      update();
+    try {
+      _bannerIndex = index;
+      if (notify) {
+        update();
+      }
+    } catch (e) {
+      log("Error setting banner index: $e");
     }
   }
 }

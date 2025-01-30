@@ -9,8 +9,10 @@ import 'package:zybo_skill_test/helper/app_pages.dart';
 class AuthController extends GetxController {
   final AuthRepository authRepository;
   AuthController({required this.authRepository});
+
   bool _isLoading = false;
   bool get isLoading => _isLoading;
+
   VerifyOtpModel? _otpModel;
   VerifyOtpModel? get otpModel => _otpModel;
 
@@ -34,29 +36,38 @@ class AuthController extends GetxController {
   RegisterResponse? _registerResponse;
   RegisterResponse? get registerResponse => _registerResponse;
 
-  Future<ResponseModel> registration(Map registerModel) async {
-    _isLoading = true;
-    update();
-    Response response = await authRepository.registration(registerModel);
-    _registerResponse = RegisterResponse.fromJson(response.body);
-
-    _isLoading = false;
-    update();
-    return ResponseModel(response.statusCode == 200, response.body['message']);
+  Future<ResponseModel> registration(
+      {required String phoneNumber, required String name}) async {
+    var body = {"phone_number": phoneNumber, "first_name": name};
+    try {
+      _isLoading = true;
+      update();
+      Response response = await authRepository.registration(body);
+      _registerResponse = RegisterResponse.fromJson(response.body);
+      return ResponseModel(
+          response.statusCode == 200, response.body['message']);
+    } catch (e) {
+      return ResponseModel(false, e.toString());
+    } finally {
+      _isLoading = false;
+      update();
+    }
   }
 
-  Future<ResponseModel> verifyOtp({
-    required Map loginData,
-  }) async {
-    _isLoading = true;
-    update();
-
-    Response response = await authRepository.verifyOtp(loginData);
-    _otpModel = VerifyOtpModel.fromJson(response.body);
-
-    _isLoading = false;
-    update();
-    return ResponseModel(response.statusCode == 200, response.body["otp"]);
+  Future<ResponseModel> verifyOtp({required String phoneNumber}) async {
+    var body = {"phone_number": phoneNumber};
+    try {
+      _isLoading = true;
+      update();
+      Response response = await authRepository.verifyOtp(body);
+      _otpModel = VerifyOtpModel.fromJson(response.body);
+      return ResponseModel(response.statusCode == 200, response.body["otp"]);
+    } catch (e) {
+      return ResponseModel(false, e.toString());
+    } finally {
+      _isLoading = false;
+      update();
+    }
   }
 
   void changeSelectedCountry(Country country) {
@@ -70,15 +81,23 @@ class AuthController extends GetxController {
   }
 
   String? getIsUserLoggedIn() {
-    return authRepository.isUserLoggedIn();
+    try {
+      return authRepository.isUserLoggedIn();
+    } catch (e) {
+      return null;
+    }
   }
 
   void logout() async {
-    await authRepository.logout();
-    Get.offAllNamed(Routes.login);
+    try {
+      await authRepository.logout();
+      Get.offAllNamed(Routes.login);
+    } catch (e) {}
   }
 
   Future<void> saveUserToken(String token) async {
-    await authRepository.saveUserToken(token);
+    try {
+      await authRepository.saveUserToken(token);
+    } catch (e) {}
   }
 }

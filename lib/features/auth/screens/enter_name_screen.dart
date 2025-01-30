@@ -66,12 +66,10 @@ class _EnterNameScreenState extends State<EnterNameScreen> {
     if (controller.text.trim().length < 2) {
       return showCustomSnackbar(AppTexts.enterValidName);
     }
-    ResponseModel responseModel =
-        await Get.find<AuthController>().registration({
-      "phone_number":
-          "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
-      "first_name": controller.text.trim()
-    });
+    ResponseModel responseModel = await Get.find<AuthController>().registration(
+        phoneNumber:
+            "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}",
+        name: controller.text.trim());
 
     if (responseModel.isSuccess) {
       Get.offAllNamed(

@@ -150,11 +150,9 @@ class LoginScreen extends StatelessWidget {
     PhoneValid phoneValid = await CustomValidator.isPhoneValid(
         "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");
     if (phoneValid.isValid) {
-      ResponseModel responseModel =
-          await Get.find<AuthController>().verifyOtp(loginData: {
-        "phone_number":
-            "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}"
-      });
+      ResponseModel responseModel = await Get.find<AuthController>().verifyOtp(
+          phoneNumber:
+              "${Get.find<AuthController>().selectedCountry.phoneCode}${Get.find<AuthController>().phoneNumber}");
 
       if (responseModel.isSuccess) {
         Get.toNamed(Routes.verifyOtp);

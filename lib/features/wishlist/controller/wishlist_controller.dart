@@ -1,5 +1,6 @@
-import 'package:get/get.dart';
+import 'dart:developer';
 
+import 'package:get/get.dart';
 import 'package:zybo_skill_test/common/models/product_model.dart';
 import 'package:zybo_skill_test/common/models/response_model.dart';
 import 'package:zybo_skill_test/features/home/controllers/home_controller.dart';
@@ -16,24 +17,36 @@ class WishlistController extends GetxController {
   int? loadingId;
 
   Future<void> getWishlist() async {
-    wishlistProducts = await wishlistRepository.getWishlist();
-    update();
+    try {
+      wishlistProducts = await wishlistRepository.getWishlist();
+      update();
+    } catch (e) {
+      log('Error getting wishlist: $e');
+    }
   }
 
   Future<ResponseModel> addToWishList(ProductModel product) async {
     loadingId = product.id;
     _isLoading = true;
     update();
-    Response response = await wishlistRepository.addToWishList(product.id);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      await getWishlist();
-
-      await Get.find<HomeController>().toggleFavorite(product);
-    }
-    _isLoading = false;
-    update();
-    return ResponseModel(
+    try {
+      Response response = await wishlistRepository.addToWishList(product.id);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        await getWishlist();
+        await Get.find<HomeController>().toggleFavorite(product);
+      }
+      return ResponseModel(
         response.statusCode == 200 || response.statusCode == 201,
-        response.body['message'] ?? "");
+        response.body['message'] ?? "",
+      );
+    } catch (e) {
+      _isLoading = false;
+      update();
+      log('Error adding to wishlist: $e');
+      return ResponseModel(false, 'An error occurred while adding to wishlist');
+    } finally {
+      _isLoading = false;
+      update();
+    }
   }
 }
