@@ -19,7 +19,7 @@ class ProfileTile extends StatelessWidget {
         Text(
           heading,
           style: AppTextStyles.heading7.copyWith(
-              fontWeight: FontWeight.w500, color: AppColors.neutral60),
+              fontWeight: FontWeight.w600, color: AppColors.neutral50),
         ),
         SizedBox(
           height: Dimensions.paddingSizeSmall,

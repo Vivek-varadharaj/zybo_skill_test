@@ -92,7 +92,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             ),
                             TextSpan(
                               text:
-                                  "+${authController.selectedCountry.phoneCode}-${authController.phoneNumber}",
+                                  " +${authController.selectedCountry.phoneCode}-${authController.phoneNumber}",
                               style: AppTextStyles.heading7.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: AppColors.neutral100,

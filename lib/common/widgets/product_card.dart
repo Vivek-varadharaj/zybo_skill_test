@@ -83,7 +83,7 @@ class ProductCard extends StatelessWidget {
             Text(
               productModel.name ?? "",
               style: AppTextStyles.heeboHeading
-                  .copyWith(fontWeight: FontWeight.w500, fontSize: 15),
+                  .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
             )
           ],
         ),

@@ -27,8 +27,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 Text(
                   AppTexts.myProfile,
-                  style: AppTextStyles.heeboHeading
-                      .copyWith(fontWeight: FontWeight.w500),
+                  style: AppTextStyles.heeboHeading.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: AppColors.primary100),
                 ),
                 SizedBox(
                   height: Dimensions.paddingSizeExtraOverLarge,

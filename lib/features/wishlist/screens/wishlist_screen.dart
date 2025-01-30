@@ -34,8 +34,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
             ),
             Text(
               AppTexts.wishList,
-              style: AppTextStyles.heeboHeading
-                  .copyWith(fontWeight: FontWeight.w500),
+              style: AppTextStyles.heeboHeading.copyWith(
+                  fontWeight: FontWeight.w500, color: AppColors.primary100),
             ),
             SizedBox(
               height: Dimensions.paddingSizeExtraLarge,
